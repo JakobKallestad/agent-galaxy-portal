@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
-import { Bot, Sparkles, Star } from 'lucide-react';
+import { 
+  Bot, Sparkles, Star, Search, Code, PenTool, 
+  BarChart, Lightbulb, Clock, Languages, Scale, 
+  Figma, Mail, CheckSquare, Heart
+} from 'lucide-react';
 
 export interface AgentCardProps {
   id: string;
@@ -29,31 +33,75 @@ const AgentCard: React.FC<AgentCardProps> = ({
   const [isLoaded, setIsLoaded] = useState(false);
   
   const colorMap = {
-    blue: 'from-blue-400 to-blue-600',
-    purple: 'from-purple-400 to-purple-600',
-    green: 'from-green-400 to-green-600',
-    orange: 'from-orange-400 to-orange-600',
-    pink: 'from-pink-400 to-pink-600',
+    blue: 'from-blue-500 to-blue-700',
+    purple: 'from-purple-500 to-purple-700',
+    green: 'from-green-500 to-green-700',
+    orange: 'from-orange-500 to-orange-700',
+    pink: 'from-pink-500 to-pink-700',
   };
   
   const handleImageLoad = () => {
     setIsLoaded(true);
   };
 
+  // Mapping of categories to icons and backgrounds
+  const getIconForCategory = () => {
+    switch(category.toLowerCase()) {
+      case 'research':
+      case 'productivity':
+        return { icon: <Search className="h-12 w-12 text-white" />, bgClass: 'icon-bg-productivity' };
+      case 'development':
+      case 'code':
+        return { icon: <Code className="h-12 w-12 text-white" />, bgClass: 'icon-bg-code' };
+      case 'writing':
+      case 'content':
+        return { icon: <PenTool className="h-12 w-12 text-white" />, bgClass: 'icon-bg-writing' };
+      case 'analytics':
+      case 'data':
+        return { icon: <BarChart className="h-12 w-12 text-white" />, bgClass: 'icon-bg-analytics' };
+      case 'creativity':
+        return { icon: <Lightbulb className="h-12 w-12 text-white" />, bgClass: 'icon-bg-creativity' };
+      case 'time':
+      case 'meetings':
+        return { icon: <Clock className="h-12 w-12 text-white" />, bgClass: 'icon-bg-productivity' };
+      case 'language':
+      case 'translation':
+        return { icon: <Languages className="h-12 w-12 text-white" />, bgClass: 'icon-bg-language' };
+      case 'legal':
+        return { icon: <Scale className="h-12 w-12 text-white" />, bgClass: 'icon-bg-legal' };
+      case 'design':
+        return { icon: <Figma className="h-12 w-12 text-white" />, bgClass: 'icon-bg-design' };
+      case 'communication':
+      case 'email':
+        return { icon: <Mail className="h-12 w-12 text-white" />, bgClass: 'icon-bg-communication' };
+      case 'task':
+      case 'management':
+        return { icon: <CheckSquare className="h-12 w-12 text-white" />, bgClass: 'icon-bg-task' };
+      case 'health':
+      case 'fitness':
+        return { icon: <Heart className="h-12 w-12 text-white" />, bgClass: 'icon-bg-health' };
+      default:
+        return { icon: <Bot className="h-12 w-12 text-white" />, bgClass: `bg-gradient-to-br ${colorMap[color]}` };
+    }
+  };
+
+  const { icon, bgClass } = getIconForCategory();
+
   return (
     <a href={`/agent/${id}`} className="block group">
       <Card className={cn(
         "overflow-hidden transition-all duration-300 ease-in-out h-full agent-card",
-        "hover:shadow-md hover:shadow-primary/10 hover:border-primary/20",
-        "border-slate-100 bg-white",
+        "hover:shadow-lg hover:shadow-primary/20 hover:border-primary/20",
+        "border-white/10 bg-black/40 backdrop-blur-sm",
+        "glow-animation"
       )}>
         <div className="agent-card-shine" />
         
         <div className="aspect-[4/3] relative overflow-hidden">
-          {!isLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-50">
+          {!isLoaded && imageUrl && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60">
               <div className="animate-pulse">
-                <Bot className="h-10 w-10 text-slate-200" />
+                <Bot className="h-10 w-10 text-gray-400" />
               </div>
             </div>
           )}
@@ -71,9 +119,10 @@ const AgentCard: React.FC<AgentCardProps> = ({
           ) : (
             <div className={cn(
               "w-full h-full flex items-center justify-center agent-card-image",
-              `bg-gradient-to-br ${colorMap[color]}`,
+              bgClass,
+              "float-animation"
             )}>
-              <Bot className="h-12 w-12 text-white" />
+              {icon}
             </div>
           )}
           
@@ -97,15 +146,15 @@ const AgentCard: React.FC<AgentCardProps> = ({
         
         <CardContent className="p-4">
           <div className="space-y-2">
-            <Badge variant="outline" className="bg-slate-50 text-slate-600 border-slate-100">
+            <Badge variant="outline" className="bg-white/5 text-gray-300 border-white/10">
               {category}
             </Badge>
-            <h3 className="font-medium text-lg leading-tight text-balance">{title}</h3>
-            <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+            <h3 className="font-medium text-lg leading-tight text-balance text-white">{title}</h3>
+            <p className="text-sm text-gray-400 line-clamp-2">{description}</p>
           </div>
         </CardContent>
         
-        <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
+        <CardFooter className="p-4 pt-0 text-xs text-gray-500">
           <div className="flex items-center gap-1 opacity-70">
             <Bot className="h-3 w-3" />
             <span>AI Agent</span>

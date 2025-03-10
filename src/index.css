@@ -5,62 +5,47 @@
 
 @layer base {
   :root {
+    /* Light theme variables kept for reference */
     --background: 210 40% 98%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-
     --radius: 0.75rem;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
+  /* Dark theme is now the default */
+  html {
+    --background: 220 40% 10%;
     --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
+    --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
@@ -88,15 +73,23 @@
 
 @layer utilities {
   .glass-card {
-    @apply backdrop-blur-md bg-white/80 border border-white/20 shadow-sm;
+    @apply backdrop-blur-md bg-black/40 border border-white/10 shadow-lg;
   }
   
   .glass-nav {
-    @apply backdrop-blur-lg bg-white/80 border-b border-white/20 supports-[backdrop-filter]:bg-white/80;
+    @apply backdrop-blur-lg bg-black/40 border-b border-white/10 supports-[backdrop-filter]:bg-black/40;
   }
 
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+  }
+  
+  .neo-blur {
+    @apply backdrop-blur-2xl bg-black/40 border border-white/10;
   }
 }
 
@@ -148,6 +141,89 @@
   animation: shine 1.2s forwards;
 }
 
+/* Custom cursor effect */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: all 0.1s ease;
+  transition-property: width, height, border;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.custom-cursor.link-hover {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: difference;
+}
+
+/* Icon gradient backgrounds */
+.icon-bg-research {
+  background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+}
+
+.icon-bg-code {
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+}
+
+.icon-bg-writing {
+  background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
+}
+
+.icon-bg-analytics {
+  background: linear-gradient(135deg, #f83600 0%, #fe8c00 100%);
+}
+
+.icon-bg-creativity {
+  background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);
+}
+
+.icon-bg-productivity {
+  background: linear-gradient(135deg, #5ee7df 0%, #b490ca 100%);
+}
+
+.icon-bg-language {
+  background: linear-gradient(135deg, #59c173 0%, #a17fe0 50%, #5d26c1 100%);
+}
+
+.icon-bg-legal {
+  background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+}
+
+.icon-bg-design {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.icon-bg-communication {
+  background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+}
+
+.icon-bg-health {
+  background: linear-gradient(135deg, #ffe259 0%, #ffa751 100%);
+}
+
+.icon-icon-bg-task {
+  background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+}
+
 @keyframes shine {
   0% {
     opacity: 0;
@@ -160,4 +236,30 @@
     opacity: 0;
     transform: translateX(100%) translateY(100%) rotate(45deg);
   }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(126, 105, 171, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(155, 135, 245, 0.9);
+  }
+}
+
+.float-animation {
+  animation: float 5s ease-in-out infinite;
+}
+
+.glow-animation {
+  animation: glow 3s ease-in-out infinite;
 }

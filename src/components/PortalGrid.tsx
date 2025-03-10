@@ -2,13 +2,13 @@
 import React, { useRef, useEffect } from 'react';
 import AgentCard, { AgentCardProps } from './AgentCard';
 
-// Sample data for agent cards
+// Sample data for agent cards with categories matching the icons
 const sampleAgents: AgentCardProps[] = [
   {
     id: '1',
     title: 'Research Assistant',
     description: 'Helps you research topics, find information, and summarize articles',
-    category: 'Productivity',
+    category: 'Research',
     isFeatured: true,
     color: 'blue'
   },
@@ -45,7 +45,7 @@ const sampleAgents: AgentCardProps[] = [
     id: '6',
     title: 'Meeting Summarizer',
     description: 'Takes notes and creates summaries of your meetings and calls',
-    category: 'Productivity',
+    category: 'Meetings',
     isNew: true,
     color: 'blue'
   },
@@ -82,7 +82,7 @@ const sampleAgents: AgentCardProps[] = [
     id: '11',
     title: 'Task Manager',
     description: 'Helps you organize tasks, set priorities, and manage your time',
-    category: 'Productivity',
+    category: 'Task',
     color: 'blue'
   },
   {
@@ -125,13 +125,35 @@ const PortalGrid = () => {
   return (
     <div className="w-full py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center space-y-4">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl leading-tight animate-fade-in">
+        <div className="mb-16 text-center space-y-4">
+          <div className="inline-block mb-2">
+            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded"></div>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl leading-tight text-gradient animate-fade-in">
             Your AI Agent Workspace
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-slide-up delay-75">
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto animate-slide-up delay-75">
             Access all your AI agents in one place, designed to enhance your productivity
           </p>
+        </div>
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full opacity-20 animate-float"
+              style={{
+                width: `${Math.random() * 10 + 5}px`,
+                height: `${Math.random() * 10 + 5}px`,
+                background: `hsl(${Math.random() * 360}, 70%, 60%)`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${Math.random() * 5 + 5}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            />
+          ))}
         </div>
         
         <div 
