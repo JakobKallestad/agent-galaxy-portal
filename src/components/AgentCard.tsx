@@ -31,6 +31,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
   color = 'blue'
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   const colorMap = {
     blue: 'from-blue-500 to-blue-700',
@@ -88,14 +89,23 @@ const AgentCard: React.FC<AgentCardProps> = ({
   const { icon, bgClass } = getIconForCategory();
 
   return (
-    <a href={`/agent/${id}`} className="block group">
+    <a 
+      href={`/agent/${id}`} 
+      className="block group agent-card"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <Card className={cn(
-        "overflow-hidden transition-all duration-300 ease-in-out h-full agent-card",
-        "hover:shadow-lg hover:shadow-primary/20 hover:border-primary/20",
+        "overflow-hidden transition-all duration-300 ease-in-out h-full relative",
         "border-white/10 bg-black/40 backdrop-blur-sm",
+        isHovered ? "transform scale-105 shadow-[0_0_25px_rgba(147,51,234,0.5)] border-purple-500/40" : "hover:shadow-lg hover:shadow-primary/20 hover:border-primary/20",
         "glow-animation"
       )}>
         <div className="agent-card-shine" />
+        
+        {isHovered && (
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 z-0"></div>
+        )}
         
         <div className="aspect-[4/3] relative overflow-hidden">
           {!isLoaded && imageUrl && (
@@ -144,7 +154,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
           )}
         </div>
         
-        <CardContent className="p-4">
+        <CardContent className="p-4 relative z-10">
           <div className="space-y-2">
             <Badge variant="outline" className="bg-white/5 text-gray-300 border-white/10">
               {category}
@@ -154,7 +164,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
           </div>
         </CardContent>
         
-        <CardFooter className="p-4 pt-0 text-xs text-gray-500">
+        <CardFooter className="p-4 pt-0 text-xs text-gray-500 relative z-10">
           <div className="flex items-center gap-1 opacity-70">
             <Bot className="h-3 w-3" />
             <span>AI Agent</span>
