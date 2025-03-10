@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
@@ -89,7 +90,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
 
   return (
     <Link 
-      to={`/agent/${id}`} 
+      to={`/app${id}`} 
       className="block group agent-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

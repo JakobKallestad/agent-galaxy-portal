@@ -1,0 +1,15 @@
+
+version: '3.8'
+
+services:
+  galaxy-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    # Uncomment and modify these environment variables if needed
+    # environment:
+    #   - NODE_ENV=production
+    #   - API_URL=https://your-api-url.com
