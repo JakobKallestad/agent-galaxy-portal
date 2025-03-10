@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
@@ -45,7 +45,6 @@ const AgentCard: React.FC<AgentCardProps> = ({
     setIsLoaded(true);
   };
 
-  // Mapping of categories to icons and backgrounds
   const getIconForCategory = () => {
     switch(category.toLowerCase()) {
       case 'research':
@@ -89,8 +88,8 @@ const AgentCard: React.FC<AgentCardProps> = ({
   const { icon, bgClass } = getIconForCategory();
 
   return (
-    <a 
-      href={`/agent/${id}`} 
+    <Link 
+      to={`/agent/${id}`} 
       className="block group agent-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -171,7 +170,7 @@ const AgentCard: React.FC<AgentCardProps> = ({
           </div>
         </CardFooter>
       </Card>
-    </a>
+    </Link>
   );
 };
 
